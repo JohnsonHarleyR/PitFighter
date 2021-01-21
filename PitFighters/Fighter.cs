@@ -40,5 +40,7 @@ namespace PitFighters
             }
         }
 
+        // get outcome
+
     }
 }
