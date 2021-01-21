@@ -7,11 +7,11 @@ namespace PitFighters
     // The blueprint for each weapon type
     interface IWeapon
     {
-        public bool outcomeBow();
-        public bool outcomeSpear();
-        public bool outcomeSword();
-        public bool outcomeHammer();
-        public bool outcomeDagger();
+        public bool OutcomeBow();
+        public bool OutcomeSpear();
+        public bool OutcomeSword();
+        public bool OutcomeHammer();
+        public bool OutcomeDagger();
 
     }
 }

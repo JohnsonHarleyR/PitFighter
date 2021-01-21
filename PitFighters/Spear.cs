@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PitFighters
 {
-    class Crossbow : IWeapon
+    class Spear : IWeapon
     {
         public bool OutcomeBow()
         {
