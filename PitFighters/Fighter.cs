@@ -13,10 +13,28 @@ namespace PitFighters
 
         // Initializers
         public Fighter() { }
-        public Fighter(string name, string type)
+        public Fighter(string name)
         {
             this.Name = name;
 
+            
+        }
+
+        // find out the fighter's name
+        public string GetName()
+        {
+            return Name;
+        }
+
+        // find out the fighter's weapon
+        public string GetWeapon()
+        {
+            return Weapon.GetName();
+        }
+
+        // set the fighter's weapon
+        public void SetWeapon(string type)
+        {
             // find out what type of weapon before setting it
             if (type.Equals("Crossbow"))
             {
@@ -38,18 +56,6 @@ namespace PitFighters
             {
                 Weapon = new Dagger(type);
             }
-        }
-
-        // find out the fighter's name
-        public string GetName()
-        {
-            return Name;
-        }
-
-        // find out the fighter's weapon
-        public string GetWeapon()
-        {
-            return Weapon.GetName();
         }
 
     }
