@@ -6,6 +6,19 @@ namespace PitFighters
 {
     class SwordShield : IWeapon
     {
+        readonly private string name;
+
+        public SwordShield() { }
+
+        public SwordShield(string name)
+        {
+            this.name = name;
+        }
+        public string GetName()
+        {
+            return name;
+        }
+
         public bool OutcomeBow()
         {
             throw new NotImplementedException();

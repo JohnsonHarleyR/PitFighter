@@ -6,6 +6,19 @@ namespace PitFighters
 {
     class Crossbow : IWeapon
     {
+        readonly private string name;
+
+        public Crossbow() { }
+
+        public Crossbow(string name)
+        {
+            this.name = name;
+        }
+        public string GetName()
+        {
+            return name;
+        }
+
         public bool OutcomeBow()
         {
             throw new NotImplementedException();

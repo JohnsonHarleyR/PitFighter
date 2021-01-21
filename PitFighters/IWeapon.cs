@@ -13,5 +13,7 @@ namespace PitFighters
         public bool OutcomeHammer();
         public bool OutcomeDagger();
 
+        public string GetName();
+
     }
 }

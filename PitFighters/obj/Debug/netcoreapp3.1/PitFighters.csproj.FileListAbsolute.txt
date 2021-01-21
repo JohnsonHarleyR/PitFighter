@@ -1,0 +1,13 @@
+C:\Users\Business\source\repos\PitFighters\PitFighters\bin\Debug\netcoreapp3.1\PitFighters.exe
+C:\Users\Business\source\repos\PitFighters\PitFighters\bin\Debug\netcoreapp3.1\PitFighters.deps.json
+C:\Users\Business\source\repos\PitFighters\PitFighters\bin\Debug\netcoreapp3.1\PitFighters.runtimeconfig.json
+C:\Users\Business\source\repos\PitFighters\PitFighters\bin\Debug\netcoreapp3.1\PitFighters.runtimeconfig.dev.json
+C:\Users\Business\source\repos\PitFighters\PitFighters\bin\Debug\netcoreapp3.1\PitFighters.dll
+C:\Users\Business\source\repos\PitFighters\PitFighters\bin\Debug\netcoreapp3.1\PitFighters.pdb
+C:\Users\Business\source\repos\PitFighters\PitFighters\obj\Debug\netcoreapp3.1\PitFighters.csprojAssemblyReference.cache
+C:\Users\Business\source\repos\PitFighters\PitFighters\obj\Debug\netcoreapp3.1\PitFighters.AssemblyInfoInputs.cache
+C:\Users\Business\source\repos\PitFighters\PitFighters\obj\Debug\netcoreapp3.1\PitFighters.AssemblyInfo.cs
+C:\Users\Business\source\repos\PitFighters\PitFighters\obj\Debug\netcoreapp3.1\PitFighters.csproj.CoreCompileInputs.cache
+C:\Users\Business\source\repos\PitFighters\PitFighters\obj\Debug\netcoreapp3.1\PitFighters.dll
+C:\Users\Business\source\repos\PitFighters\PitFighters\obj\Debug\netcoreapp3.1\PitFighters.pdb
+C:\Users\Business\source\repos\PitFighters\PitFighters\obj\Debug\netcoreapp3.1\PitFighters.genruntimeconfig.cache

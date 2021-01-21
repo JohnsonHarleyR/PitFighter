@@ -6,6 +6,19 @@ namespace PitFighters
 {
     class Warhammer : IWeapon
     {
+        readonly private string name;
+
+        public Warhammer() { }
+
+        public Warhammer(string name)
+        {
+            this.name = name;
+        }
+        public string GetName()
+        {
+            return name;
+        }
+
         public bool OutcomeBow()
         {
             throw new NotImplementedException();

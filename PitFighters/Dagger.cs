@@ -6,6 +6,19 @@ namespace PitFighters
 {
     class Dagger : IWeapon
     {
+        readonly private string name;
+
+        public Dagger() { }
+
+        public Dagger(string name)
+        {
+            this.name = name;
+        }
+        public string GetName()
+        {
+            return name;
+        }
+
         public bool OutcomeBow()
         {
             throw new NotImplementedException();
