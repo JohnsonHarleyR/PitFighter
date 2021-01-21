@@ -22,7 +22,7 @@ namespace PitFighters
                 List<Fighter> teamBFighters = new List<Fighter>(); // Team B fighters
                 List<string> teamAWeapons = new List<string> { "Crossbow", "Spear", "Sword & Shield", "Warhammer", "Dagger" };
                 List<string> teamBWeapons = new List<string> { "Crossbow", "Spear", "Sword & Shield", "Warhammer", "Dagger" };
-
+                Random random = new Random(); // generate random numbers
 
                 // Intro to user
                 Console.WriteLine("Welcome to Pit Fighter");
@@ -41,7 +41,7 @@ namespace PitFighters
                     // get the name
                     while (String.IsNullOrEmpty(name)) // keep asking for name until they enter something
                     {
-                        Console.Write($"\nEnter a name for Fighter {choices[i]}: ");
+                        Console.Write($"Enter a name for Fighter {choices[i]}: ");
                         name = Console.ReadLine();
                     }
                     
@@ -54,7 +54,7 @@ namespace PitFighters
                     //Console.WriteLine("\nFighter created!");
                 }
 
-                Console.WriteLine("Player 2, please name your fighters.");
+                Console.WriteLine("\nPlayer 2, please name your fighters.");
                 // Ask for names and weapons of Team B fighters, put into list - use loop
                 for (int i = 0; i < choices.Length; i++)
                 {
@@ -65,26 +65,18 @@ namespace PitFighters
                     // get the name
                     while (String.IsNullOrEmpty(name)) // keep asking for name until they enter something
                     {
-                        Console.Write($"\nEnter a name for Fighter {choices[i]}: ");
+                        Console.Write($"Enter a name for Fighter {choices[i]}: ");
                         name = Console.ReadLine();
                     }
 
 
                     // now create a new fighter to add to the team
-                    teamAFighters.Add(new Fighter(name));
+                    teamBFighters.Add(new Fighter(name));
 
 
                     // now it will loop to find the name and weapon of the next fighter of the next fighter
                     //Console.WriteLine("\nFighter created!");
                 }
-
-                // show them Team A
-                Console.WriteLine("\nHere is Team A:\n");
-                DisplayFighters(choices, teamAFighters);
-
-                // Show them Team B
-                Console.WriteLine("\nHere is Team B:\n");
-                DisplayFighters(choices, teamBFighters);
 
 
                 Console.WriteLine("\nFighters will be chosen randomly.\nHere we go!");
@@ -95,8 +87,50 @@ namespace PitFighters
                 while (teamAFighters.Count > 0 && teamBFighters.Count > 0)
                 {
                     // Variables
+                    Fighter fighter1 = teamAFighters[random.Next(0, teamAFighters.Count)]; // grab random fighter
+                    Fighter fighter2 = teamBFighters[random.Next(0, teamAFighters.Count)]; // grab random fighter
+                    //int whoPicks;
 
-                    // Choose opponents randomly
+                    // take a pause
+                    Console.WriteLine("\n(Hit enter to continue.)");
+                    Console.ReadLine();
+
+                    // Show what fighters are left
+                    Console.WriteLine("\nTeam A Fighters:");
+                    DisplayFighters(choices, teamAFighters);
+
+                    Console.WriteLine("\nTeam B Fighters:");
+                    DisplayFighters(choices, teamBFighters);
+
+                    
+
+
+                    // Tell the who is fighting who
+                    Console.WriteLine($"\n{fighter1.GetName()} from Team A will fight {fighter2.GetName()}" +
+                        $" from Team B!");
+
+                    // take a pause
+                    Console.WriteLine("\n(Ready for battle?\nHit enter to continue.)");
+                    Console.ReadLine();
+
+
+                    // Find out player 1's weapon
+                    Console.WriteLine("\nPlayer 1, choose a weapon for your fighter!");
+                    Console.WriteLine("Player 2, look away from the keyboard.");
+
+                    // show their weapons and have one selected
+                    ChooseWeapon(choices, fighter1, teamAWeapons);
+
+                    // now for player 2
+                    Console.WriteLine("\n\nPlayer 2, it's your turn!");
+                    Console.WriteLine("Player 1, look away from the keyboard.");
+
+                    // show their weapons and have one selected
+                    ChooseWeapon(choices, fighter2, teamBWeapons);
+
+                    
+
+
 
                 }
 
@@ -109,7 +143,7 @@ namespace PitFighters
         }
 
         // choose a weapon for a fighter
-        public static void ChooseWeapon(Fighter fighter, List<string> weapons, string[] choices)
+        public static void ChooseWeapon(string[] choices, Fighter fighter, List<string> weapons)
         {
             // Variables
             string weapon = "";
@@ -117,15 +151,47 @@ namespace PitFighters
             bool validEntry = false;
 
             // Get the weapon
-            Console.WriteLine("\nHere are the weapons to choose from:");
+            Console.WriteLine("\nHere are your weapons to choose from:");
             // Display list of weapons left to choose from
             DisplayWeapons(choices, weapons);
 
             // loop until they enter a letter
             while (String.IsNullOrEmpty(weapon) || !validEntry) // check validity
             {
-                Console.Write($"\nEnter the letter of {fighter.GetName()}'s weapon: ");
-                weapon = Console.ReadLine();
+                weapon = "";
+                Console.WriteLine($"\nEnter the letter of {fighter.GetName()}'s weapon: ");
+                // keep input private
+                while (true)
+                {
+                    int x = Console.CursorLeft;
+                    int y = Console.CursorTop;
+
+                    var key = Console.ReadKey(true);
+                    if (key.Key == ConsoleKey.Enter)
+                    {
+                        break;
+                    } else if (key.Key == ConsoleKey.Backspace && weapon.Length > 0) // for backspace
+                    {
+                        weapon.Remove(weapon.Length - 1, 1);
+                        if (Console.CursorLeft != 0) // make sure the cursor does
+                        {
+                            Console.SetCursorPosition(x - 1, y);
+                            Console.Write(" ");
+                            Console.SetCursorPosition(x - 1, y);
+                        }
+                        
+                    } else if (key.Key != ConsoleKey.Backspace)
+                    {
+                        Console.Write("*");
+                        weapon += key.KeyChar;
+                    }
+                    
+                }
+
+                // trim weapon just in case
+                weapon = weapon.Trim();
+                
+
                 // check if they entered a letter equal to any of the weapon choices - lots of loops
                 for (int n = 0; n < weapons.Count; n++)
                 {
@@ -143,10 +209,17 @@ namespace PitFighters
                         break; // if one is found to be valid, it can break the for loop.
                     }
                 }
+                // if it's invalid, let them know
+                if (!validEntry)
+                {
+                    Console.WriteLine("\nInvalid entry.");
+                }
             }
             // delete that weapon from list of weapons
             weapons.RemoveAt(weaponNum); // if it stays -1, there's an error
+
             // set that weapon to the fighter's weapon
+            fighter.SetWeapon(weapon);
         }
 
         // display weapons
