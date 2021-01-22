@@ -23,9 +23,10 @@ namespace PitFighters
                 List<string> teamAWeapons = new List<string> { "Crossbow", "Spear", "Sword & Shield", "Warhammer", "Dagger" };
                 List<string> teamBWeapons = new List<string> { "Crossbow", "Spear", "Sword & Shield", "Warhammer", "Dagger" };
                 Random random = new Random(); // generate random numbers
+                string cont;
 
                 // Intro to user
-                Console.WriteLine("Welcome to Pit Fighter");
+                Console.WriteLine("\nWelcome to Pit Fighter");
                 Console.WriteLine("\nBoth teams will have 5 fighters.");
                 Console.WriteLine("Fighters are chosen randomly, but each player may choose their weapon.");
                 Console.WriteLine("\nGood luck!\n");
@@ -150,16 +151,22 @@ namespace PitFighters
                     Console.WriteLine($"\nTeam B is out of fighters.");
                     Console.WriteLine($"Player 1 is the winner!");
                 }
-                else
+                else if (teamBFighters.Count > 0)
                 {
                     Console.WriteLine($"\nTeam A is out of fighters.");
                     Console.WriteLine($"Player A is the winner!");
                 }
+                else // otherwise it's a tie
+                {
+                    Console.WriteLine($"\nBoth teams are out of fighters.");
+                    Console.WriteLine($"There is no winner!");
+                }
 
                 // find out if the players want to play another round
-                Console.WriteLine("Play another round?");
-                // if they type something with the letter y in it, play again. Otherwise, break the loop
-                if (!Console.ReadLine().ToUpper().Contains("y"))
+                Console.WriteLine("\nPlay another round?");
+                // if they type something with the letter n in it, break. Otherwise, play again
+                cont = Console.ReadLine().ToUpper();
+                if (cont.Contains("N"))
                 {
                     break;
                 }
@@ -175,7 +182,7 @@ namespace PitFighters
         {
             // Variables
             string weapon = "";
-            int weaponNum = -1;
+            int weaponNum;
             bool validEntry = false;
 
             // Get the weapon
@@ -253,8 +260,8 @@ namespace PitFighters
             // test
             //Console.WriteLine(weaponNum);
 
-            // delete that weapon from list of weapons
-            weapons.RemoveAt(weaponNum); // if it stays -1, there's an error
+            // NO LONGER DO THIS - DOES NOT WORK PROPERLY THIS WAY - delete that weapon from list of weapons
+            //weapons.RemoveAt(weaponNum); // if it stays -1, there's an error
 
             // set that weapon to the fighter's weapon
             fighter.SetWeapon(weapon);
