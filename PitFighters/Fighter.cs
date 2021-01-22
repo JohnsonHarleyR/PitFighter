@@ -32,6 +32,31 @@ namespace PitFighters
             return Weapon.GetName();
         }
 
+        // Get outcome of battle, depending on other fighter's weapon
+        public int GetOutcome(Fighter fighter2)
+        {
+            if (fighter2.GetWeapon().Equals("Crossbow"))
+                {
+                return Weapon.OutcomeBow();
+            } 
+            else if (fighter2.GetWeapon().Equals("Spear"))
+            {
+                return Weapon.OutcomeSpear();
+            }
+            else if (fighter2.GetWeapon().Equals("Sword & Shield"))
+            {
+                return Weapon.OutcomeSword();
+            }
+            else if (fighter2.GetWeapon().Equals("Warhammer"))
+            {
+                return Weapon.OutcomeHammer();
+            }
+            else 
+            {
+                return Weapon.OutcomeDagger();
+            }
+        }
+
         // set the fighter's weapon
         public void SetWeapon(string type)
         {

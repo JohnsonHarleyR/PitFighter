@@ -5,7 +5,7 @@ namespace PitFighters
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             // Variables
             string[] choices = new string[] {"A", "B", "C", "D", "E" }; // make selection easy
@@ -43,6 +43,11 @@ namespace PitFighters
                     {
                         Console.Write($"Enter a name for Fighter {choices[i]}: ");
                         name = Console.ReadLine();
+
+                        if (String.IsNullOrEmpty(name) || String.IsNullOrWhiteSpace(name))
+                        {
+                            Console.WriteLine("Invalid entry.");
+                        }
                     }
                     
 
@@ -87,8 +92,10 @@ namespace PitFighters
                 while (teamAFighters.Count > 0 && teamBFighters.Count > 0)
                 {
                     // Variables
+                    //int index1 = random.Next(0, teamAFighters.Count);
+                    //int index2 = random.Next(0, teamBFighters.Count);
                     Fighter fighter1 = teamAFighters[random.Next(0, teamAFighters.Count)]; // grab random fighter
-                    Fighter fighter2 = teamBFighters[random.Next(0, teamAFighters.Count)]; // grab random fighter
+                    Fighter fighter2 = teamBFighters[random.Next(0, teamBFighters.Count)]; // grab random fighter
                     //int whoPicks;
 
                     // take a pause
@@ -96,6 +103,7 @@ namespace PitFighters
                     Console.ReadLine();
 
                     // Show what fighters are left
+                    Console.WriteLine("\nHere are the fighters left on each team:");
                     Console.WriteLine("\nTeam A Fighters:");
                     DisplayFighters(choices, teamAFighters);
 
@@ -116,25 +124,45 @@ namespace PitFighters
 
                     // Find out player 1's weapon
                     Console.WriteLine("\nPlayer 1, choose a weapon for your fighter!");
-                    Console.WriteLine("Player 2, look away from the keyboard.");
+                    //Console.WriteLine("Player 2, look away from the keyboard.");
 
                     // show their weapons and have one selected
                     ChooseWeapon(choices, fighter1, teamAWeapons);
 
                     // now for player 2
                     Console.WriteLine("\n\nPlayer 2, it's your turn!");
-                    Console.WriteLine("Player 1, look away from the keyboard.");
+                    //Console.WriteLine("Player 1, look away from the keyboard.");
 
                     // show their weapons and have one selected
                     ChooseWeapon(choices, fighter2, teamBWeapons);
 
-                    
-
+                    // now the battle begins
+                    Console.WriteLine("\nThe battle begins!\n");
+                    DetermineOutcome(fighter1, fighter2, teamAFighters, teamBFighters);
 
 
                 }
 
+                // one team must now be out of fighters
+                // figure out who the winner is
+                if (teamAFighters.Count > 0)
+                {
+                    Console.WriteLine($"\nTeam B is out of fighters.");
+                    Console.WriteLine($"Player 1 is the winner!");
+                }
+                else
+                {
+                    Console.WriteLine($"\nTeam A is out of fighters.");
+                    Console.WriteLine($"Player A is the winner!");
+                }
 
+                // find out if the players want to play another round
+                Console.WriteLine("Play another round?");
+                // if they type something with the letter y in it, play again. Otherwise, break the loop
+                if (!Console.ReadLine().ToUpper().Contains("y"))
+                {
+                    break;
+                }
 
 
             }
@@ -163,33 +191,35 @@ namespace PitFighters
                 // keep input private
                 while (true)
                 {
-                    int x = Console.CursorLeft;
+                    int x = Console.CursorLeft; // position of cursor
                     int y = Console.CursorTop;
 
                     var key = Console.ReadKey(true);
-                    if (key.Key == ConsoleKey.Enter)
+                    if (key.Key == ConsoleKey.Enter) // if the hit enter, break the loop
                     {
                         break;
-                    } else if (key.Key == ConsoleKey.Backspace && weapon.Length > 0) // for backspace
+                    } else if (key.Key == ConsoleKey.Backspace && weapon.Length > 0 
+                        && Console.CursorLeft != 0) // for backspace - only do this if it's not at beginning
                     {
-                        weapon.Remove(weapon.Length - 1, 1);
-                        if (Console.CursorLeft != 0) // make sure the cursor does
-                        {
-                            Console.SetCursorPosition(x - 1, y);
-                            Console.Write(" ");
-                            Console.SetCursorPosition(x - 1, y);
-                        }
+
+                        Console.SetCursorPosition(x - 1, y); 
+                        weapon = weapon.Remove(weapon.Length - 1, 1); // remove letter from entry
+                        Console.Write(" ");
+                        Console.SetCursorPosition(x - 1, y);
                         
+
                     } else if (key.Key != ConsoleKey.Backspace)
                     {
                         Console.Write("*");
                         weapon += key.KeyChar;
                     }
-                    
+
+                    // trim weapon just in case
+                    weapon = weapon.Trim();
+
                 }
 
-                // trim weapon just in case
-                weapon = weapon.Trim();
+                
                 
 
                 // check if they entered a letter equal to any of the weapon choices - lots of loops
@@ -207,6 +237,10 @@ namespace PitFighters
                         weapon = weapons[weaponNum];
 
                         break; // if one is found to be valid, it can break the for loop.
+                    } else if (String.IsNullOrEmpty(weapon) || String.IsNullOrWhiteSpace(weapon))
+                    {
+                        validEntry = false;
+                        break;
                     }
                 }
                 // if it's invalid, let them know
@@ -215,6 +249,10 @@ namespace PitFighters
                     Console.WriteLine("\nInvalid entry.");
                 }
             }
+
+            // test
+            //Console.WriteLine(weaponNum);
+
             // delete that weapon from list of weapons
             weapons.RemoveAt(weaponNum); // if it stays -1, there's an error
 
@@ -222,9 +260,42 @@ namespace PitFighters
             fighter.SetWeapon(weapon);
         }
 
+
+
         // display and get the outcome of a battle
-        public static void GetOutcome(Fighter fighter1, Fighter fighter2, List<Fighter> TeamA, List<Fighter> TeamB)
+        public static void DetermineOutcome(Fighter fighter1, Fighter fighter2, // int index1, int index2,
+            List<Fighter> TeamA, List<Fighter> TeamB)
         {
+            // variables
+            int outcome = fighter1.GetOutcome(fighter2); // find out the outcome depending on their weapons
+
+            // tell what the weapons
+            Console.WriteLine($"\n{fighter1.GetName()} fights with a {fighter1.GetWeapon()}," +
+                $" {fighter2.GetName()} attacks with a {fighter2.GetWeapon()}!");
+
+            // take action depending on the outcome
+            if (outcome == 0) // if it's a tie
+            {
+                // tell players the outcome
+                Console.WriteLine("They have both met their match! The fighters battle to the death, nobody wins.");
+                // remove fighters from both lists
+                TeamA.Remove(fighter1);
+                TeamB.Remove(fighter2);
+            } else if (outcome == 1) // if fighter 1 wins
+            {
+                // tell players the outcome
+                Console.WriteLine($"The {fighter2.GetWeapon()} is no match for the {fighter1.GetWeapon()}! " +
+                    $"{fighter1.GetName()} wins, {fighter2.GetName()} dies!");
+                // remove the losing fighter
+                TeamB.Remove(fighter2);
+            } else // otherwise the outcome must be 2 - fighter 2 wins
+            {
+                // tell players the outcome
+                Console.WriteLine($"The {fighter1.GetWeapon()} is no match for the {fighter2.GetWeapon()}! " +
+                    $"{fighter2.GetName()} wins, {fighter1.GetName()} dies!");
+                // remove the losing fighter
+                TeamA.Remove(fighter1);
+            }
 
         }
 
@@ -246,12 +317,6 @@ namespace PitFighters
                 Console.WriteLine($"{choices[i]}. {fighters[i].GetName()}");
             }
         }
-
-
-        // method to get the outcome of the fight
-        // if fighter A wins, fighter B is removed from list
-        // if fighter B wins, fighter A is removed from list
-        // if it's a tie, both fighters are removed
 
     }
 
