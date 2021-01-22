@@ -104,7 +104,7 @@ namespace PitFighters
                     Console.ReadLine();
 
                     // Show what fighters are left
-                    Console.WriteLine("\nHere are the fighters left on each team:");
+                    Console.WriteLine("\nHere are the fighters on each team:");
                     Console.WriteLine("\nTeam A Fighters:");
                     DisplayFighters(choices, teamAFighters);
 
@@ -163,10 +163,10 @@ namespace PitFighters
                 }
 
                 // find out if the players want to play another round
-                Console.WriteLine("\nPlay another round?");
-                // if they type something with the letter n in it, break. Otherwise, play again
+                Console.WriteLine("\nPlay another round?\n(Enter 'yes' to continue.)");
+                // if they type something with the letter y in it, play again. Otherwise, break
                 cont = Console.ReadLine().ToUpper();
-                if (cont.Contains("N"))
+                if (!cont.Contains("Y"))
                 {
                     break;
                 }
@@ -253,7 +253,7 @@ namespace PitFighters
                 // if it's invalid, let them know
                 if (!validEntry)
                 {
-                    Console.WriteLine("\nInvalid entry.");
+                    Console.WriteLine("Invalid entry.");
                 }
             }
 
