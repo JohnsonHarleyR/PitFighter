@@ -12,11 +12,11 @@ namespace PitFighters
         // If it returns 2, player 2 wins battle
         // If it returns 0, both players lose
 
-        public bool OutcomeBow();
-        public bool OutcomeSpear();
-        public bool OutcomeSword();
-        public bool OutcomeHammer();
-        public bool OutcomeDagger();
+        public int OutcomeBow();
+        public int OutcomeSpear();
+        public int OutcomeSword();
+        public int OutcomeHammer();
+        public int OutcomeDagger();
 
         public string GetName();
 

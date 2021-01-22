@@ -6,6 +6,9 @@ namespace PitFighters
 {
     class Dagger : IWeapon
     {
+
+        // player 1 here should refer to the player holding this weapon
+
         readonly private string name;
 
         public Dagger() { }
@@ -19,29 +22,29 @@ namespace PitFighters
             return name;
         }
 
-        public bool OutcomeBow()
+        public int OutcomeBow()
         {
-            throw new NotImplementedException();
+            return 2; // crossbow wins
         }
 
-        public bool OutcomeDagger()
+        public int OutcomeDagger()
         {
-            throw new NotImplementedException();
+            return 0; // tie - both die
         }
 
-        public bool OutcomeHammer()
+        public int OutcomeHammer()
         {
-            throw new NotImplementedException();
+            return 2; // warhammer wins - player 2
         }
 
-        public bool OutcomeSpear()
+        public int OutcomeSpear()
         {
-            throw new NotImplementedException();
+            return 1; // dagger wins - player 1
         }
 
-        public bool OutcomeSword()
+        public int OutcomeSword()
         {
-            throw new NotImplementedException();
+            return 1; // dagger wins - player 1
         }
     }
 }

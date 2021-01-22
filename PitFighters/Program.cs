@@ -222,6 +222,13 @@ namespace PitFighters
             fighter.SetWeapon(weapon);
         }
 
+        // display and get the outcome of a battle
+        public static void GetOutcome(Fighter fighter1, Fighter fighter2, List<Fighter> TeamA, List<Fighter> TeamB)
+        {
+
+        }
+
+
         // display weapons
         public static void DisplayWeapons(string[] choices, List<string> weapons)
         {
