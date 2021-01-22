@@ -291,14 +291,14 @@ namespace PitFighters
             } else if (outcome == 1) // if fighter 1 wins
             {
                 // tell players the outcome
-                Console.WriteLine($"The {fighter2.GetWeapon()} is no match for the {fighter1.GetWeapon()}! " +
+                Console.WriteLine($"The {fighter2.GetWeapon()} is no match for the {fighter1.GetWeapon()}. " +
                     $"{fighter1.GetName()} wins, {fighter2.GetName()} dies!");
                 // remove the losing fighter
                 TeamB.Remove(fighter2);
             } else // otherwise the outcome must be 2 - fighter 2 wins
             {
                 // tell players the outcome
-                Console.WriteLine($"The {fighter1.GetWeapon()} is no match for the {fighter2.GetWeapon()}! " +
+                Console.WriteLine($"The {fighter1.GetWeapon()} is no match for the {fighter2.GetWeapon()}. " +
                     $"{fighter2.GetName()} wins, {fighter1.GetName()} dies!");
                 // remove the losing fighter
                 TeamA.Remove(fighter1);
